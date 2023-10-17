@@ -3,4 +3,7 @@ ape: "@api."
 envy: user.insert_between("self.env['", "']")
 op not: "not "
 me: "self"
-beck <word>: user.insert_between(".{word}(", ")")
+nope: edit.undo()
+
+# record a snippet for these
+lamb: user.insert_between("lambda ", ": ")

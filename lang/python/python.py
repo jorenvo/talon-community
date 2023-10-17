@@ -19,7 +19,7 @@ ctx.lists["user.code_common_function"] = {
     "string": "str",
     "update": "update",
     "dick": "dict",
-    "string": "str",
+    "boolean": "bool",
 }
 
 """a set of fields used in python docstrings that will follow the

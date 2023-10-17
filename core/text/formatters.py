@@ -129,11 +129,24 @@ def every_word(word_func):
     return lambda i, word, _: word_func(word)
 
 
+def snake():
+    return first_vs_rest(lambda w: w.lower(), lambda w: "_" + w.lower())
+
+
 def surrounded_snake(by):
     def composed(i, word, _):
-        snaked = first_vs_rest(lambda w: w.lower(), lambda w: '_' + w.lower())(i, word, _)
+        snaked = snake()(i, word, _)
         return surround(by)(i, snaked, _)
     return composed
+
+
+def call_snake():
+    def composed(i, word, last):
+        word = first_vs_rest(lambda w: f".{w.lower()}", lambda w: "_" + w.lower())(i, word, last)
+        return (word + "(") if last else word
+
+    return composed
+
 
 # All formatters (code and prose)
 formatters_dict = {
@@ -150,7 +163,7 @@ formatters_dict = {
     "PUBLIC_CAMEL_CASE": (NOSEP, every_word(lambda w: w.capitalize())),
     "SNAKE_CASE": (
         NOSEP,
-        first_vs_rest(lambda w: w.lower(), lambda w: "_" + w.lower()),
+        snake(),
     ),
     "PRIVATE_SNAKE_CASE": (
         NOSEP,
@@ -163,6 +176,10 @@ formatters_dict = {
     "DOUBLE_QUOTED_SNAKE_CASE_STRING": (
         NOSEP,
         surrounded_snake('"'),
+    ),
+    "CALL_SNAKE": (
+        NOSEP,
+        call_snake(),
     ),
     "NO_SPACES": (NOSEP, every_word(lambda w: w)),
     "DASH_SEPARATED": words_with_joiner("-"),
@@ -187,6 +204,7 @@ formatters_dict = {
     "CAPITALIZE_ALL_WORDS": (SEP, title_case()),
 }
 
+
 # Mapping from spoken phrases to formatter names
 code_formatter_names = {
     "all cap": "ALL_CAPS",
@@ -207,6 +225,7 @@ code_formatter_names = {
     "string": "SINGLE_QUOTED_STRING",
     "string snake": "SINGLE_QUOTED_SNAKE_CASE_STRING",
     "dub string snake": "DOUBLE_QUOTED_SNAKE_CASE_STRING",
+    "beck": "CALL_SNAKE",
 }
 prose_formatter_names = {
     "say": "NOOP",
