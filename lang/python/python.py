@@ -18,6 +18,8 @@ ctx.lists["user.code_common_function"] = {
     "split": "split",
     "string": "str",
     "update": "update",
+    "dick": "dict",
+    "string": "str",
 }
 
 """a set of fields used in python docstrings that will follow the
@@ -45,7 +47,6 @@ ctx.lists["user.code_type"] = {
     "integer": "int",
     "string": "str",
     "none": "None",
-    "dick": "Dict",
     "float": "float",
     "any": "Any",
     "tuple": "Tuple",

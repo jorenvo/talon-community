@@ -129,6 +129,12 @@ def every_word(word_func):
     return lambda i, word, _: word_func(word)
 
 
+def surrounded_snake(by):
+    def composed(i, word, _):
+        snaked = first_vs_rest(lambda w: w.lower(), lambda w: '_' + w.lower())(i, word, _)
+        return surround(by)(i, snaked, _)
+    return composed
+
 # All formatters (code and prose)
 formatters_dict = {
     "NOOP": (SEP, lambda i, word, _: word),
@@ -145,6 +151,18 @@ formatters_dict = {
     "SNAKE_CASE": (
         NOSEP,
         first_vs_rest(lambda w: w.lower(), lambda w: "_" + w.lower()),
+    ),
+    "PRIVATE_SNAKE_CASE": (
+        NOSEP,
+        first_vs_rest(lambda w: f"_{w.lower()}", lambda w: "_" + w.lower()),
+    ),
+    "SINGLE_QUOTED_SNAKE_CASE_STRING": (
+        NOSEP,
+        surrounded_snake("'"),
+    ),
+    "DOUBLE_QUOTED_SNAKE_CASE_STRING": (
+        NOSEP,
+        surrounded_snake('"'),
     ),
     "NO_SPACES": (NOSEP, every_word(lambda w: w)),
     "DASH_SEPARATED": words_with_joiner("-"),
@@ -185,7 +203,10 @@ code_formatter_names = {
     "conga": "SLASH_SEPARATED",
     "smash": "NO_SPACES",
     "snake": "SNAKE_CASE",
+    "prawn": "PRIVATE_SNAKE_CASE",
     "string": "SINGLE_QUOTED_STRING",
+    "string snake": "SINGLE_QUOTED_SNAKE_CASE_STRING",
+    "dub string snake": "DOUBLE_QUOTED_SNAKE_CASE_STRING",
 }
 prose_formatter_names = {
     "say": "NOOP",
