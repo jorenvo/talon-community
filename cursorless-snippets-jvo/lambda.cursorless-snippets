@@ -1,0 +1,21 @@
+{
+  "lambdaStatement": {
+    "definitions": [
+      {
+        "scope": {
+          "langIds": [
+            "python"
+          ]
+        },
+        "body": [
+          "lambda $variable: $statement"
+        ]
+      }
+    ],
+    "description": "Inserts a lambda statement.",
+    "variables": {
+      "variable": {},
+      "statement": {}
+    }
+  }
+}

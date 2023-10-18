@@ -1,0 +1,22 @@
+{
+  "forStatement": {
+    "definitions": [
+      {
+        "scope": {
+          "langIds": [
+            "python"
+          ]
+        },
+        "body": [
+          "for $condition:",
+          "\t$body"
+        ]
+      }
+    ],
+    "description": "A for statement.",
+    "variables": {
+      "condition": {},
+      "body": {}
+    }
+  }
+}
